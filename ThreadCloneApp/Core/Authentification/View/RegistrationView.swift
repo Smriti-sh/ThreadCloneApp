@@ -13,6 +13,7 @@ struct RegistrationView: View {
     @State private var fullname = ""
     @State private var username = ""
     @State private var password = ""
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack{
@@ -45,8 +46,9 @@ struct RegistrationView: View {
                 SecureField("Enter your password", text: $password)
                     .modifier(ThreadsTextFieldModifier())
             }
-             
+
             Button {
+//                link
             } label: {
                 Text("Sign Up")
                     .modifier(ThreadButtonFieldModifier())
@@ -58,6 +60,7 @@ struct RegistrationView: View {
             Divider()
             
             Button {
+                dismiss()
             } label: {
                 HStack(spacing:4){
                     Text("Already have an account?")

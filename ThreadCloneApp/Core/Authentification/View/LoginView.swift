@@ -32,7 +32,7 @@ struct LoginView: View {
                         .modifier(ThreadsTextFieldModifier())
                     
                     SecureField("Enter your password", text: $password)
-                        .modifier(ThreadsTextFieldModifier()) 
+                        .modifier(ThreadsTextFieldModifier())
                 }
                 
                 NavigationLink{
@@ -46,7 +46,8 @@ struct LoginView: View {
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-                Button {
+                
+                Button{
                     
                 } label: {
                     Text("Login")
@@ -58,7 +59,8 @@ struct LoginView: View {
                 Divider()
                 
                 NavigationLink{
-                    Text("Registration view")
+                    RegistrationView()
+//                        .navigationBarBackButtonHidden(true)
                 }label: {
                     HStack(spacing:4){
                         Text("Don't have an account?")
