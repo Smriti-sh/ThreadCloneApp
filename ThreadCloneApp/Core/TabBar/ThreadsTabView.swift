@@ -4,6 +4,8 @@ struct ThreadsTabView: View {
     
     //The @State property wrapper allows SwiftUI to rebuild the view when the value changes
     @State private var selectedTab = 0
+    @State private var lastTab = 0
+    @State private var showCreateThreadView = false
     
     var body: some View {
         
@@ -26,7 +28,8 @@ struct ThreadsTabView: View {
                 .onAppear{selectedTab = 1}
                 .tag(1)
             
-            ThreadView()
+//            CreateThreadView()
+            Text("")
                 .tabItem {
                     Image(systemName: "plus")
                 }
@@ -49,6 +52,30 @@ struct ThreadsTabView: View {
                 .onAppear{selectedTab = 4}
                 .tag(4)
         }
+        
+        //after dismiss it opens feedView by default
+        
+//        .onChange(of: selectedTab, perform: { newValue in
+//            showCreateThreadView = selectedTab == 2
+//        })
+//        .sheet(isPresented: $showCreateThreadView, onDismiss: {
+//            selectedTab = 0
+//        }, content: {
+//            CreateThreadView()
+//        })
+        
+        //after dismiss it opens last opened tab
+        .onChange(of: selectedTab, perform: { newValue in
+            showCreateThreadView = selectedTab == 2
+            if selectedTab != 2 {
+                lastTab = selectedTab
+            }
+        })
+        .sheet(isPresented: $showCreateThreadView, onDismiss: {
+            selectedTab = lastTab
+        }, content: {
+            CreateThreadView()
+        })
         .tint(.black)
     }
 }

@@ -38,7 +38,7 @@ struct EditProfileView: View {
                     VStack(alignment: .leading){
                         Text("Bio")
                             .fontWeight(.semibold)
-                        TextField("Enter your bio...", text: $bio, axis:.vertical)
+                        TextField("Enter your bio...", text: $bio, axis:.vertical) //axis to make it extensible vertically
                     }
                     
                     Divider()
@@ -82,7 +82,7 @@ struct EditProfileView: View {
                     .font(.subheadline)
                     .foregroundColor(.black)
                 }
-            }
+            } 
         }
     }
 }
