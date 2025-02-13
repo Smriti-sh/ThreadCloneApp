@@ -9,8 +9,9 @@ import SwiftUI
 
 struct LoginView: View {
 //    The @State keyword ensures that changes to email and password trigger an automatic UI update.
-    @State private var email = ""
-    @State private var password = ""
+//    @State private var email = ""
+//    @State private var password = ""
+    @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationStack{
@@ -28,10 +29,11 @@ struct LoginView: View {
                 
                 VStack{
                      
-                    TextField("Enter you email", text: $email)
+                    TextField("Enter you email", text: $viewModel.email)
                         .modifier(ThreadsTextFieldModifier())
+                        .autocapitalization(.none)
                     
-                    SecureField("Enter your password", text: $password)
+                    SecureField("Enter your password", text: $viewModel.password)
                         .modifier(ThreadsTextFieldModifier())
                 }
                 
@@ -48,7 +50,7 @@ struct LoginView: View {
                 }
                 
                 Button{
-                    
+                    Task{try await viewModel.login()}
                 } label: {
                     Text("Login")
                         .modifier(ThreadButtonFieldModifier())

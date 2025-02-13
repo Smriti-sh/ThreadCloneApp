@@ -19,84 +19,94 @@ struct ProfileView: View {
     
     var body: some View {
         
-        ScrollView(showsIndicators: true){
-            
-            VStack (spacing: 20){
-                HStack(alignment: .top){
-                    //bio and stats
-                    VStack(alignment: .leading,spacing: 12){
-                        //fullname and username
-                        VStack(alignment: .leading, spacing: 4){
-                            Text("Kiki's Service")
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                            Text("Kiki'sService01")
-                                .font(.subheadline)
-                        }
-                        Text("A witch character for Ghibli movie")
-                            .font(.footnote)
-                        
-                        Text("2 Followers")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                        
-                    }
-                    Spacer()
-                    
-                    CircularProfileImageView()
-                }
-            }
-            Button{
+        NavigationStack{
+            ScrollView(showsIndicators: true){
                 
-            }label: {
-                Text("Follow")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .frame(width: 352, height: 32)
-                    .background(.black)
-                    .cornerRadius(8)
-                    .padding(.top,8)
-            }
-            
-                //user content and list view
-                VStack{
-                    HStack{
-                        ForEach(ProfileThreadFilter.allCases){ filter in
-                            VStack{
-                                Text(filter.title)
+                VStack (spacing: 20){
+                    HStack(alignment: .top){
+                        //bio and stats
+                        VStack(alignment: .leading,spacing: 12){
+                            //fullname and username
+                            VStack(alignment: .leading, spacing: 4){
+                                Text("Kiki's Service")
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                Text("Kiki'sService01")
                                     .font(.subheadline)
-                                    .fontWeight(selectedFilter == filter ? .semibold : .regular)
-                                
-                                if selectedFilter == filter{
-                                    Rectangle()
-                                        .foregroundColor(.black)
-                                        .frame(width: filterBarWidth, height: 1)
-                                        //for sliding transition
-                                        .matchedGeometryEffect(id: "filter", in: animation)
-                                }else{
-                                    Rectangle()
-                                        .foregroundColor(.clear)
-                                        .frame(width: filterBarWidth, height: 1)
-                                }
                             }
-                            .onTapGesture {
-                                withAnimation(.spring()){
-                                    selectedFilter = filter
-                                }
-                            }
+                            Text("A witch character for Ghibli movie")
+                                .font(.footnote)
+                            
+                            Text("2 Followers")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                            
                         }
-                    }
-                    LazyVStack{
-                        ForEach(0 ... 10, id: \.self){ thread in
-                            ThreadCell()
-                        }
+                        Spacer()
+                        
+                        CircularProfileImageView()
                     }
                 }
-                .padding(.vertical,8)
+                Button{
+                    
+                }label: {
+                    Text("Follow")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(width: 352, height: 32)
+                        .background(.black)
+                        .cornerRadius(8)
+                        .padding(.top,8)
+                }
+                
+                    //user content and list view
+                    VStack{
+                        HStack{
+                            ForEach(ProfileThreadFilter.allCases){ filter in
+                                VStack{
+                                    Text(filter.title)
+                                        .font(.subheadline)
+                                        .fontWeight(selectedFilter == filter ? .semibold : .regular)
+                                    
+                                    if selectedFilter == filter{
+                                        Rectangle()
+                                            .foregroundColor(.black)
+                                            .frame(width: filterBarWidth, height: 1)
+                                            //for sliding transition
+                                            .matchedGeometryEffect(id: "filter", in: animation)
+                                    }else{
+                                        Rectangle()
+                                            .foregroundColor(.clear)
+                                            .frame(width: filterBarWidth, height: 1)
+                                    }
+                                }
+                                .onTapGesture {
+                                    withAnimation(.spring()){
+                                        selectedFilter = filter
+                                    }
+                                }
+                            }
+                        }
+                        LazyVStack{
+                            ForEach(0 ... 10, id: \.self){ thread in
+                                ThreadCell()
+                            }
+                        }
+                    }
+                    .padding(.vertical,8)
+            }
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button{
+                        AuthService.shared.signOut()
+                    }label:{
+                        Image(systemName: "line.3.horizontal")
+                    }
+                }
+            }
+            .padding(.horizontal)
         }
-        
-        .padding(.horizontal)
     }
 }
 
