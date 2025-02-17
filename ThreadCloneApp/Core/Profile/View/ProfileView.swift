@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @StateObject var viewModel = ProfileViewModel()
     @State private var selectedFilter: ProfileThreadFilter = .threads
     @Namespace var animation
     
@@ -102,6 +103,7 @@ struct ProfileView: View {
                         AuthService.shared.signOut()
                     }label:{
                         Image(systemName: "line.3.horizontal")
+                            .foregroundColor(.black)
                     }
                 }
             }

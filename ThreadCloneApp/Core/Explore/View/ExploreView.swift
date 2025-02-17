@@ -23,9 +23,9 @@ struct ExploreView: View {
                 }
                 .padding(.horizontal)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-                .padding(.horizontal)
+                .padding()
 //                .padding(.top, 8)
-                .padding(.vertical)
+//                .padding(.vertical)
                 
                 // Scrollable Content
                 ScrollView {

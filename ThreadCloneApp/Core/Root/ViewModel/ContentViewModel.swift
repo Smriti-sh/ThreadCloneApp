@@ -9,6 +9,7 @@
 import Foundation
 //to listen when user session receives a value through @Published
 import Combine
+import Firebase
 import FirebaseAuth
 
 class ContentViewModel: ObservableObject{
