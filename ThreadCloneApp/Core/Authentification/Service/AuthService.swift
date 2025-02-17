@@ -28,6 +28,7 @@ class AuthService {
          do {
              let result = try await Auth.auth().signIn(withEmail: email, password: password)
              self.userSession = result.user
+             try await UserService.shared.fetchCurrentUser()
 //             print("DEBUG: Created user \(result.user.uid)")
          } catch {
              print("DEBUG: Failed to create user with error \(error.localizedDescription)")
@@ -39,7 +40,7 @@ class AuthService {
      func createUser(withEmail email: String, password: String, fullname: String, username: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            self.userSession = result.user 
+            self.userSession = result.user
 //            print("DEBUG: Created user \(result.user.uid)")
             try await uploadUserData(withEmail: email, fullname: fullname, username: username, id: result.user.uid)
         } catch {
@@ -51,6 +52,7 @@ class AuthService {
     func signOut(){
         try? Auth.auth().signOut()  //signs out on backend
         self.userSession = nil  //removes session locally and updates routing
+        UserService.shared.reset() //to remove the last user logged in details or set currentUser to nil
     }
     
     
@@ -72,6 +74,7 @@ class AuthService {
         // Upload the data to Firestore
         //.setData(userData) uploads the userData to Firestore for the specified document. If the document doesn’t exist, it will be created.
         try await Firestore.firestore().collection("users").document(id).setData(userData)
+        UserService.shared.currentUser = user   //hatho haath current user update krdo
     }
 }
 

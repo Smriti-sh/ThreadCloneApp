@@ -13,6 +13,7 @@ import FirebaseAuth
 class UserService{
     @Published var currentUser : User?
     
+    //static let shared creates a singleton instance of UserService. & This ensures only one instance of UserService exists throughout the app.
     static let shared = UserService()
     
     init(){
@@ -28,4 +29,10 @@ class UserService{
             
             print("DEBUG: User is \(user)")
         }
+    
+    func reset(){
+        self.currentUser = nil 
+    }
 }
+
+//snapshot = snapshot is an instance of DocumentSnapshot.  It represents a document in Firestore, containing its data and metadata.

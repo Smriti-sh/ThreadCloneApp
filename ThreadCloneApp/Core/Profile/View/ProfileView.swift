@@ -18,6 +18,11 @@ struct ProfileView: View {
         return UIScreen.main.bounds.width / count - 16
     }
     
+    //for changing hard coded data to dynamic
+    private var currentUser : User?{
+        return viewModel.currentUser
+    }
+    
     var body: some View {
         
         NavigationStack{
@@ -29,14 +34,22 @@ struct ProfileView: View {
                         VStack(alignment: .leading,spacing: 12){
                             //fullname and username
                             VStack(alignment: .leading, spacing: 4){
-                                Text("Kiki's Service")
+//                                Text("Kiki's Service")
+                                Text(currentUser?.fullname ?? "")
                                     .font(.title2)
                                     .fontWeight(.semibold)
-                                Text("Kiki'sService01")
+                                Text(currentUser?.username ?? "")
                                     .font(.subheadline)
                             }
-                            Text("A witch character for Ghibli movie")
-                                .font(.footnote)
+                            
+//                            Text("A witch character for Ghibli movie")
+//                                .font(.footnote)
+                            
+                            //bio is in if condition because if there is no bio then there wont be empty space in profile 
+                            if let bio = currentUser?.bio{
+                                Text(bio)
+                                    .font(.footnote)
+                            }
                             
                             Text("2 Followers")
                                 .font(.caption)
