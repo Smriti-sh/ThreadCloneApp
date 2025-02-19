@@ -27,7 +27,7 @@
 import Foundation
 import Combine
 
-class ProfileViewModel: ObservableObject {
+class CurrentUserProfileViewModel: ObservableObject {
     @Published var currentUser: User?
     private var cancellables = Set<AnyCancellable>()
 
@@ -39,7 +39,7 @@ class ProfileViewModel: ObservableObject {
         UserService.shared.$currentUser.sink { [weak self] user in
 //            .receive(on: DispatchQueue.main) // Ensure updates happen on the main thread
                 self?.currentUser = user
-                print("DEBUG: User in view model from Combine is \(String(describing: user))")
+//                print("DEBUG: User in view model from Combine is \(String(describing: user))")
             }
             .store(in: &cancellables)  // Store the subscription
     }
