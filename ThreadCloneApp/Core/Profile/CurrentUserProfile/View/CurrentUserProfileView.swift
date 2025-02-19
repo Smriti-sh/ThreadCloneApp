@@ -1,14 +1,8 @@
-//
-//  CurrentUseraProfileView.swift
-//  ThreadCloneApp
-//
-//  Created by Smriti Sharma on 18/02/25.
-//
-
 import SwiftUI
 
 struct CurrentUserProfileView: View {
     @StateObject var viewModel = CurrentUserProfileViewModel()
+    @State private var showEditProfile = false
     
     //for changing hard coded data to dynamic
     private var currentUser : User?{
@@ -22,7 +16,7 @@ struct CurrentUserProfileView: View {
                 VStack (spacing: 20){
                     ProfileHeaderView(user: currentUser)
                     Button{
-                        
+                        showEditProfile.toggle()
                     }label: {
                         Text("Edit Profile")
                             .font(.subheadline)
@@ -42,6 +36,10 @@ struct CurrentUserProfileView: View {
                     UserContentListView()
                 }
             }
+            .sheet(isPresented: $showEditProfile, content:{
+                EditProfileView()
+                    .environmentObject(viewModel)
+            })
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button{
