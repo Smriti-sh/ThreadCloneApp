@@ -16,7 +16,7 @@ struct ThreadCell: View {
 //                    .scaledToFit()
 //                    .frame(width: 40, height: 40)
 //                    .clipShape(Circle())
-                CircularProfileImageView()
+                CircularProfileImageView(user: nil,size: .small)
                 
                 VStack(alignment: .leading, spacing: 4){
                     HStack{
