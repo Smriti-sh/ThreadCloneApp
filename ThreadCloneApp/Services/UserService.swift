@@ -30,11 +30,17 @@ class UserService{
         }
     
     //function ot fetch all users and display in exploreView
-    static func fetchAllUsers() async throws -> [User] {
+    static func fetchUsers() async throws -> [User] {
         guard let currentUid = Auth.auth().currentUser?.uid else {return []}
         let snapshot = try await Firestore.firestore().collection("users").getDocuments()
         let users = snapshot.documents.compactMap({ try? $0.data(as: User.self)})
         return users.filter({ $0.id != currentUid})     //Loops through users and removes the currently logged-in user (currentUid). & ensures that the logged-in user doesn’t see themselves in the fetched users list.
+    }
+    
+    //to fetch any user we want
+    static func fetchUser(withUid uid:String) async throws -> User? {
+        let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
+        return try snapshot.data(as: User.self)
     }
     
     func reset(){
