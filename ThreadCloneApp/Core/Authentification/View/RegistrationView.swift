@@ -16,11 +16,18 @@ struct RegistrationView: View {
             
             Spacer()
             
-            Image("logo")
+            Image("hive2")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 150,height: 150)
-                .padding()
+                .frame(width: 220,height: 220)
+            
+            Text("Connect    with    Hive    Community!")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.black)
+                .opacity(0.5)
+                
+            Spacer()
             
             VStack{
                 
@@ -44,6 +51,7 @@ struct RegistrationView: View {
                 Task { try await viewModel.createUser() }
             } label: {
                 Text("Sign Up")
+                    .foregroundColor(.yellow)
                     .modifier(ThreadButtonFieldModifier())
             }
             .padding(.vertical)

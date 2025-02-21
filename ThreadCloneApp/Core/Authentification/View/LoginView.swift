@@ -21,11 +21,18 @@ struct LoginView: View {
                 
                 Spacer()
                 
-                Image("logo")
+                Image("hive2")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150,height: 150)
-                    .padding()
+                    .frame(width: 220,height: 220)
+                
+                Text("Connect    with    Hive    Community!")
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.black)
+                    .opacity(0.5)
+                    
+                Spacer()
                 
                 VStack{
                      
@@ -53,6 +60,7 @@ struct LoginView: View {
                     Task{try await viewModel.login()}
                 } label: {
                     Text("Login")
+                        .foregroundColor(.yellow)
                         .modifier(ThreadButtonFieldModifier())
                 }
                 

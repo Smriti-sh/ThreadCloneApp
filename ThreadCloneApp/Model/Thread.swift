@@ -7,6 +7,7 @@
 
 import Firebase
 import FirebaseFirestore
+import FirebaseAuth
 
 struct Thread: Identifiable, Codable {
     @DocumentID var threadID : String?
@@ -15,11 +16,17 @@ struct Thread: Identifiable, Codable {
     var caption: String
     var timestamp: Timestamp
     var likes: Int
+//    var likedBy: [String] = [] // Store user IDs who liked this post
     
     var id: String{
         return threadID ?? NSUUID().uuidString
     }
     
     var user: User?
+    
+//    var isLiked: Bool {
+//            guard let currentUserID = Auth.auth().currentUser?.uid else { return false }
+//            return likedBy.contains(currentUserID)
+//        }
 }
  

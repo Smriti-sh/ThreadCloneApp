@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false){
@@ -20,7 +21,8 @@ struct FeedView: View {
                 }
             }
             .refreshable {
-                print("DEBUG: Refresh Hive")
+                //to drag & refresh the feeds
+                Task{ try await viewModel.fetchThreads()}
             }
             .navigationTitle("Hive")
             .navigationBarTitleDisplayMode(.inline)
